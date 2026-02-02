@@ -1,0 +1,34 @@
+.navbar{
+  height:65px;
+  background:#020617;
+  border-bottom:1px solid #1e293b;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 30px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:#6366f1;
+  cursor:pointer;
+}
+
+.nav-links{
+  display:flex;
+  gap:25px;
+}
+
+.nav-links span{
+  cursor:pointer;
+  color:#e5e7eb;
+  font-weight:500;
+}
+
+.nav-links span:hover{
+  color:#6366f1;
+}

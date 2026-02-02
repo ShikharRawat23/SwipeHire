@@ -1,0 +1,90 @@
+body{
+  margin:0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.intro-container{
+  height:100vh;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  position:relative;
+}
+
+.intro-card{
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  padding:70px 90px;
+  border-radius:25px;
+  text-align:center;
+  color:white;
+  box-shadow:0 0 40px rgba(0,255,255,0.3);
+  z-index:2;
+}
+
+.logo{
+  font-size:82px;
+  letter-spacing:3px;
+  background: linear-gradient(90deg,#00f2fe,#4facfe);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.tagline{
+  font-size:22px;
+  margin-top:10px;
+}
+
+.subtitle{
+  color:#cfcfcf;
+  margin-bottom:35px;
+}
+
+.start-btn{
+  background: linear-gradient(90deg,#00f2fe,#4facfe);
+  border:none;
+  padding:14px 45px;
+  border-radius:40px;
+  font-size:18px;
+  color:black;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.start-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 20px #00f2fe;
+}
+
+.creator{
+  margin-top:40px;
+  font-size:14px;
+  color:#bbb;
+}
+
+.creator span{
+  color:#00f2fe;
+}
+
+/* Glowing orbs */
+
+.glow{
+  position:absolute;
+  width:250px;
+  height:250px;
+  background:#00f2fe;
+  filter:blur(120px);
+  opacity:0.6;
+  animation:float 8s infinite alternate;
+}
+
+.glow1{ top:10%; left:20%; }
+.glow2{ bottom:15%; right:20%; background:#4facfe; }
+.glow3{ top:50%; right:50%; background:#38ef7d; }
+
+@keyframes float{
+  from{ transform:translateY(0px);}
+  to{ transform:translateY(60px);}
+}

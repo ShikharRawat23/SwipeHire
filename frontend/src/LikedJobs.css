@@ -1,0 +1,62 @@
+.liked-container{
+  min-height:100vh;
+  padding:40px 20px;
+  background:linear-gradient(135deg,#020617,#020617,#0f172a);
+  color:white;
+}
+
+.liked-container h2{
+  text-align:center;
+  margin-bottom:30px;
+  font-size:32px;
+}
+
+.liked-card{
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  padding:25px;
+  margin:20px auto;
+  max-width:600px;
+  box-shadow:0 0 25px rgba(99,102,241,0.25);
+  transition:0.3s;
+}
+
+.liked-card:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 35px rgba(99,102,241,0.45);
+}
+
+.liked-card h3{
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.liked-card p{
+  margin:4px 0;
+  color:#cbd5f5;
+}
+
+.status{
+  margin-top:15px;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:30px;
+  display:inline-block;
+}
+
+/* STATUS COLORS */
+
+.status:contains("Pending"){
+  background:#facc15;
+  color:black;
+}
+
+.status:contains("Accepted"){
+  background:#22c55e;
+  color:white;
+}
+
+.status:contains("Rejected"){
+  background:#ef4444;
+  color:white;
+}
