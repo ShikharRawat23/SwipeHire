@@ -9,6 +9,10 @@ User = get_user_model()
 
 @method_decorator(csrf_exempt, name="dispatch")
 class RegisterView(APIView):
+    """
+    POST /api/accounts/register/
+    """
+
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
@@ -27,11 +31,17 @@ class RegisterView(APIView):
         user.role = role
         user.save()
 
-        return Response({"message": "User registered successfully"})
+        return Response({
+            "message": "User registered successfully"
+        })
 
 
 @method_decorator(csrf_exempt, name="dispatch")
 class LoginView(APIView):
+    """
+    POST /api/accounts/login/
+    """
+
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
