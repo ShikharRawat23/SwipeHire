@@ -42,10 +42,11 @@ class RegisterView(APIView):
 # =========================
 # LOGIN
 # =========================
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name="dispatch")
 class LoginView(APIView):
 
     def post(self, request):
+
         print("LOGIN DATA:", request.data)
 
         username = request.data.get("username")
@@ -65,4 +66,4 @@ class LoginView(APIView):
         return Response({
             "username": user.username,
             "role": user.role
-        }, status=200)
+        })
