@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+import json
 
 User = get_user_model()
 
@@ -11,9 +12,13 @@ User = get_user_model()
 class RegisterView(APIView):
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-        role = request.data.get("role")
+        data = request.data
+
+        username = data.get("username")
+        password = data.get("password")
+        role = data.get("role")
+
+        print("REGISTER DATA:", data)
 
         if not username or not password or not role:
             return Response({"error": "Missing fields"}, status=400)
@@ -21,10 +26,7 @@ class RegisterView(APIView):
         if User.objects.filter(username=username).exists():
             return Response({"error": "User already exists"}, status=400)
 
-        user = User.objects.create_user(
-            username=username,
-            password=password
-        )
+        user = User.objects.create_user(username=username, password=password)
         user.role = role
         user.save()
 
@@ -35,8 +37,12 @@ class RegisterView(APIView):
 class LoginView(APIView):
 
     def post(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
+        data = request.data
+
+        username = data.get("username")
+        password = data.get("password")
+
+        print("LOGIN DATA:", data)
 
         if not username or not password:
             return Response({"error": "Missing fields"}, status=400)
