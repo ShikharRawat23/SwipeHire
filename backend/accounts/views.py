@@ -1,25 +1,43 @@
+from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from .serializers import RegisterSerializer
-from .serializers import LoginSerializer
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
+User = get_user_model()
+
+@method_decorator(csrf_exempt, name="dispatch")
 class RegisterView(APIView):
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "User created"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    parser_classes = [JSONParser]
 
-class LoginView(APIView):
     def post(self, request):
-        serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.validated_data['user']
-            return Response({
-                "message": "Login successful",
-                "username": user.username,
-                "role": user.role
-            })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        data = request.data
+
+        username = data.get("username")
+        password = data.get("password")
+        role = data.get("role")
+
+        if not username or not password or not role:
+            return Response(
+                {"error": "Missing fields"},
+                status=400
+            )
+
+        if User.objects.filter(username=username).exists():
+            return Response(
+                {"error": "User already exists"},
+                status=400
+            )
+
+        user = User.objects.create_user(
+            username=username,
+            password=password
+        )
+        user.role = role
+        user.save()
+
+        return Response(
+            {"message": "User registered successfully"},
+            status=201
+        )
