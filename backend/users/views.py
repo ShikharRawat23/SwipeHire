@@ -1,17 +1,15 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
-User = get_user_model()
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class RegisterView(APIView):
 
     def post(self, request):
-        print("DATA:", request.data)
+        print("REGISTER DATA:", request.data)
 
         username = request.data.get("username")
         password = request.data.get("password")
@@ -34,7 +32,7 @@ class RegisterView(APIView):
 class LoginView(APIView):
 
     def post(self, request):
-        print("DATA:", request.data)
+        print("LOGIN DATA:", request.data)
 
         username = request.data.get("username")
         password = request.data.get("password")
