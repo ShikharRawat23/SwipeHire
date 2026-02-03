@@ -48,7 +48,15 @@ class LoginView(APIView):
         if not user.check_password(password):
             return Response({"error": "Invalid credentials"}, status=400)
 
+        # 🔐 ensure profile exists
+        from accounts.models import Profile
+        profile, created = Profile.objects.get_or_create(
+            user=user,
+            defaults={"role": "jobseeker"}
+        )
+
         return Response({
             "username": user.username,
-            "role": user.profile.role
+            "role": profile.role
         })
+
