@@ -47,23 +47,10 @@ class LoginView(APIView):
 
     def post(self, request):
 
-        print("LOGIN DATA:", request.data)
-
-        username = request.data.get("username")
-        password = request.data.get("password")
-
-        if not username or not password:
-            return Response({"error": "Missing fields"}, status=400)
-
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return Response({"error": "Invalid credentials"}, status=400)
-
-        if not user.check_password(password):
-            return Response({"error": "Invalid credentials"}, status=400)
+        print("HEADERS:", request.headers)
+        print("BODY RAW:", request.body)
+        print("DATA:", request.data)
 
         return Response({
-            "username": user.username,
-            "role": user.role
+            "received": request.data
         })
