@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import API_BASE_URL from "./api";
+
 
 function MyJobs(){
 
@@ -8,7 +10,8 @@ function MyJobs(){
   const navigate = useNavigate();
 
   useEffect(()=>{
-    fetch("http://127.0.0.1:8000/api/jobs/myjobs/")
+    fetch(`${API_BASE_URL}/api/jobs/myjobs/`)
+
       .then(res=>res.json())
       .then(data=>setJobs(data));
   },[]);

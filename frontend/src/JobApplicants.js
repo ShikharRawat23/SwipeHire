@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar";
+import API_BASE_URL from "./api";
 
 function JobApplicants() {
 
@@ -9,7 +10,8 @@ function JobApplicants() {
 
   // Load applicants
   const loadUsers = useCallback(() => {
-    fetch(`http://127.0.0.1:8000/api/swipes/job/${jobId}/likes/`)
+    fetch(`${API_BASE_URL}/api/swipes/job/${jobId}/likes/`)
+
       .then(res => res.json())
       .then(data => setUsers(data))
       .catch(err => console.log("Fetch error:", err));
@@ -21,7 +23,8 @@ function JobApplicants() {
 
   // Accept / Reject
   const decide = (swipe_id, decision) => {
-    fetch("http://127.0.0.1:8000/api/swipes/decision/", {
+    fetch(`${API_BASE_URL}/api/swipes/decision/`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ swipe_id, decision })
@@ -80,7 +83,8 @@ function JobApplicants() {
               {u.resume && (
                 <div style={{ marginTop: "15px" }}>
                   <a
-                    href={`http://127.0.0.1:8000${u.resume}`}
+                    href={`${API_BASE_URL}${u.resume}`}
+
                     target="_blank"
                     rel="noreferrer"
                   >

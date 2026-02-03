@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "./api";
+
 
 function LikedJobs() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/swipes/liked/")
+    
+      axios.get(`${API_BASE_URL}/api/swipes/liked/`)
+
       .then((res) => setJobs(res.data))
       .catch((err) => console.error(err));
   }, []);

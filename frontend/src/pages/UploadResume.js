@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../api";
+
 
 function UploadResume() {
   const [name, setName] = useState("");
@@ -20,8 +22,8 @@ function UploadResume() {
     formData.append("email", email);
     formData.append("file", file);
 
-    axios
-      .post("http://127.0.0.1:8000/api/resume/upload/", formData)
+    axios.post(`${API_BASE_URL}/api/resume/upload/`, formData)
+
       .then(() => {
         // 👉 go to success page
         navigate("/success");

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import API_BASE_URL from "./api";
+
 
 function MyProfile(){
 
@@ -9,8 +11,8 @@ function MyProfile(){
   const username = localStorage.getItem("username");
 
   useEffect(()=>{
-    fetch(`http://127.0.0.1:8000/api/resume/profile/${username}/`)
-      .then(res=>res.json())
+    fetch(`${API_BASE_URL}/api/resume/profile/${username}/`)
+
       .then(data=>setProfile(data));
   },[username]);
 
@@ -29,7 +31,8 @@ function MyProfile(){
 
           {profile.resume && (
             <a
-              href={`http://127.0.0.1:8000${profile.resume}`}
+              href={`${API_BASE_URL}${profile.resume}`}
+
               target="_blank"
               rel="noreferrer"
             >

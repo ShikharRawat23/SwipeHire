@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import JobCard from "../components/JobCard";
+import API_BASE_URL from "../api";
+
 
 function SwipeJobs() {
   const [jobs, setJobs] = useState([]);
@@ -8,11 +10,12 @@ function SwipeJobs() {
   const [animate, setAnimate] = useState(null);
 
   // Temporary logged-in user
-  const username = "shikhar";
+  const username = localStorage.getItem("username");
+
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/jobs/matched/")
+    axios.get(`${API_BASE_URL}/api/jobs/matched/`)
+)
       .then((res) => setJobs(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -26,7 +29,8 @@ function SwipeJobs() {
   const handleLike = () => {
     setAnimate("right");
 
-    axios.post("http://127.0.0.1:8000/api/swipes/save/", {
+    axios.post(`${API_BASE_URL}/api/swipes/save/`, {
+
       job_id: job.id,
       action: "liked",
       username: username,
@@ -40,8 +44,9 @@ function SwipeJobs() {
 
   const handleReject = () => {
     setAnimate("left");
+axios.post(`${API_BASE_URL}/api/swipes/save/`, {
 
-    axios.post("http://127.0.0.1:8000/api/swipes/save/", {
+    
       job_id: job.id,
       action: "rejected",
       username: username,

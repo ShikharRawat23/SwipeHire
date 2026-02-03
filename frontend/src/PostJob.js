@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import API_BASE_URL from "./api";
+
 
 function PostJob(){
 
@@ -11,7 +13,8 @@ function PostJob(){
   const navigate = useNavigate();
 
   const postJob = ()=>{
-    fetch("http://127.0.0.1:8000/api/jobs/create/",{
+    fetch(`${API_BASE_URL}/api/jobs/create/`,{
+
       method:"POST",
       headers:{ "Content-Type":"application/json" },
       body:JSON.stringify({

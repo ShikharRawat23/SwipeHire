@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "./api";
+
+
+
 
 function ProfileSetup(){
 
@@ -7,6 +11,9 @@ function ProfileSetup(){
   const [email,setEmail] = useState("");
   const [file,setFile] = useState(null);
   const navigate = useNavigate();
+ 
+
+  
 
   const handleSubmit = () => {
 
@@ -16,7 +23,8 @@ function ProfileSetup(){
   formData.append("email", email);
   formData.append("file", file);
 
-  fetch("http://127.0.0.1:8000/api/resume/upload/", {
+  fetch(`${API_BASE_URL}/api/resume/upload/`, {
+
     method: "POST",
     body: formData
   })

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./LikedJobs.css";
 import Navbar from "./Navbar";
+import API_BASE_URL from "./api";
 
 function LikedJobs(){
 
@@ -9,8 +10,8 @@ function LikedJobs(){
   useEffect(() => {
 
     fetch(
-      `http://127.0.0.1:8000/api/swipes/liked/?username=${localStorage.getItem("username")}`
-    )
+  `${API_BASE_URL}/api/swipes/liked/?username=${localStorage.getItem("username")}`
+)
       .then(res => res.json())
       .then(data => setJobs(data));
 

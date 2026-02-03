@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./JobCards.css";
 import "./LikedJobs.css";
 import Navbar from "./Navbar";
+import API_BASE_URL from "./api";
+
 
 function JobCards() {
 
@@ -13,7 +15,8 @@ function JobCards() {
 
   // LOAD JOBS
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/jobs/?username=${username}`)
+    fetch(`${API_BASE_URL}/api/jobs/?username=${username}`)
+
       .then(res => res.json())
       .then(data => {
         setJobs(data);
@@ -24,7 +27,8 @@ function JobCards() {
 
   // LIKE JOB
   const handleLike = () => {
-    fetch("http://127.0.0.1:8000/api/swipes/save/", {
+    fetch(`${API_BASE_URL}/api/swipes/save/`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -39,7 +43,8 @@ function JobCards() {
 
   // REJECT JOB
   const handleReject = () => {
-    fetch("http://127.0.0.1:8000/api/swipes/save/", {
+    fetch(`${API_BASE_URL}/api/swipes/save/`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

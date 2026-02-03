@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "./api";
+
 
 function Signup(){
 
@@ -9,7 +11,8 @@ function Signup(){
   const navigate = useNavigate();
 
   const handleSignup = ()=>{
-    fetch("http://127.0.0.1:8000/api/accounts/register/",{
+    fetch(`${API_BASE_URL}/api/accounts/register/`,{
+
       method:"POST",
       headers:{ "Content-Type":"application/json" },
       body:JSON.stringify({username,password,role})
