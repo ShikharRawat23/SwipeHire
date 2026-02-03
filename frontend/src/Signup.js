@@ -34,9 +34,21 @@ function Signup(){
   return(
     <div className="center">
 
-      <div className="card">
+      <div className="card" style={{ width:"380px" }}>
 
-        <h2>Create Account</h2>
+        {/* APP NAME */}
+        <h1 style={{ textAlign:"center" }}>SwipeHire</h1>
+
+        {/* SLOGAN */}
+        <p style={{ 
+          textAlign:"center",
+          color:"#94a3b8",
+          marginBottom:"25px"
+        }}>
+          Swipe. Match. Get Hired.
+        </p>
+
+        <h2>Create Account 🚀</h2>
 
         <input
           placeholder="Username"
@@ -50,14 +62,36 @@ function Signup(){
         />
 
         <select onChange={e=>setRole(e.target.value)}>
+
           <option value="jobseeker">Job Seeker</option>
           <option value="recruiter">Recruiter</option>
- 
+
         </select>
 
-        <button onClick={handleSignup}>
-          Sign Up
+        <button 
+          className="btn btn-primary"
+          style={{ width:"100%", marginTop:"15px" }}
+          onClick={handleSignup}
+        >
+          Create Account
         </button>
+
+        {/* LOGIN LINK */}
+        <p 
+          style={{
+            marginTop:"20px",
+            textAlign:"center",
+            color:"#94a3b8"
+          }}
+        >
+          Already have an account?{" "}
+          <span
+            style={{ color:"#6366f1", cursor:"pointer" }}
+            onClick={()=>navigate("/login")}
+          >
+            Login
+          </span>
+        </p>
 
       </div>
 
