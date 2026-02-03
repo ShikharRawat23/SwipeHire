@@ -1,46 +1,100 @@
-const handleLogin = ()=>{
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "./api";
+import "./Auth.css";
 
-  fetch(`${API_BASE_URL}/api/users/login/`, {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({username,password})
-  })
-  .then(res=>res.json())
-  .then(data=>{
+function Login() {
 
-    if(!data.role){
-      alert("Invalid credentials");
-      return;
-    }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    // ✅ Save session
-    localStorage.setItem("username", data.username);
-    localStorage.setItem("role", data.role);
+  const handleLogin = () => {
 
-    // -------------------
-    // JOBSEEKER FLOW
-    // -------------------
-    if(data.role === "jobseeker"){
+    fetch(`${API_BASE_URL}/api/users/login/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
 
-      fetch(`${API_BASE_URL}/api/resume/check/${data.username}/`)
-        .then(res=>res.json())
-        .then(r=>{
-          if(r.hasProfile){
-            navigate("/jobseeker");
-          }else{
-            navigate("/profilesetup");
-          }
-        });
+      if (!data.role) {
+        alert("Invalid credentials");
+        return;
+      }
 
-    }
+      // Save session
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("role", data.role);
 
-    // -------------------
-    // RECRUITER FLOW
-    // -------------------
-    if(data.role === "recruiter"){
-      navigate("/recruiter");
-    }
+      // JOBSEEKER
+      if (data.role === "jobseeker") {
 
-  });
+        fetch(`${API_BASE_URL}/api/resume/check/${data.username}/`)
+          .then(res => res.json())
+          .then(r => {
+            if (r.hasProfile) {
+              navigate("/jobseeker");
+            } else {
+              navigate("/profilesetup");
+            }
+          });
+      }
 
-};
+      // RECRUITER
+      if (data.role === "recruiter") {
+        navigate("/recruiter");
+      }
+
+    })
+    .catch(() => {
+      alert("Server error");
+    });
+
+  };
+
+  return (
+    <div className="center">
+
+      <div className="card" style={{ width: "380px" }}>
+
+        <h2>Welcome Back 👋</h2>
+        <p style={{ color: "#94a3b8" }}>Login to SwipeHire</p>
+
+        <input
+          placeholder="Username"
+          onChange={e => setUsername(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={e => setPassword(e.target.value)}
+        />
+
+        <button
+          className="btn btn-primary"
+          style={{ width: "100%", marginTop: "20px" }}
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+
+        <p style={{ marginTop: "20px", textAlign: "center", color: "#94a3b8" }}>
+          New user?{" "}
+          <span
+            style={{ color: "#6366f1", cursor: "pointer" }}
+            onClick={() => navigate("/signup")}
+          >
+            Create account
+          </span>
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default Login;
