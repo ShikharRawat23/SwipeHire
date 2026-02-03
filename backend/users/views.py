@@ -7,6 +7,9 @@ from django.utils.decorators import method_decorator
 User = get_user_model()
 
 
+# =========================
+# REGISTER
+# =========================
 @method_decorator(csrf_exempt, name='dispatch')
 class RegisterView(APIView):
 
@@ -15,21 +18,30 @@ class RegisterView(APIView):
 
         username = request.data.get("username")
         password = request.data.get("password")
+        role = request.data.get("role")
 
-        if not username or not password:
+        if not username or not password or not role:
             return Response({"error": "Missing fields"}, status=400)
 
         if User.objects.filter(username=username).exists():
             return Response({"error": "User already exists"}, status=400)
 
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=username,
-            password=password
+            password=password,
+            role=role
         )
 
-        return Response({"message": "User registered successfully"})
+        return Response({
+            "message": "User registered successfully",
+            "username": user.username,
+            "role": user.role
+        }, status=201)
 
 
+# =========================
+# LOGIN
+# =========================
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginView(APIView):
 
@@ -38,6 +50,9 @@ class LoginView(APIView):
 
         username = request.data.get("username")
         password = request.data.get("password")
+
+        if not username or not password:
+            return Response({"error": "Missing fields"}, status=400)
 
         try:
             user = User.objects.get(username=username)
@@ -48,5 +63,6 @@ class LoginView(APIView):
             return Response({"error": "Invalid credentials"}, status=400)
 
         return Response({
-            "username": user.username
-        })
+            "username": user.username,
+            "role": user.role
+        }, status=200)
